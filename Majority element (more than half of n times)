@@ -1,0 +1,55 @@
+Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+ 
+
+Example 1:
+
+Input: nums = [3,2,3]
+Output: 3
+Example 2:
+
+Input: nums = [2,2,1,1,1,2,2]
+Output: 2
+ 
+
+Constraints:
+
+n == nums.length
+1 <= n <= 5 * 104
+-109 <= nums[i] <= 109
+ 
+
+Follow-up: Could you solve the problem in linear time and in O(1) space?
+
+
+Approach:
+1) We can use map to store frequency,but map takes O(n) space complexity
+2)We go for moore's voting algo
+It is based on the fact that majority elements count gets cancelled with count of minority,so the element whch exists at the last 
+represents the minority element
+
+
+Code:
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int count=0;
+        int n=nums.size();
+        int element=nums[0];
+        for(int i=0;i<n;i++){
+            if(count==0){
+                element =nums[i];
+            }
+            if(element==nums[i]){
+                count++;
+            }
+            else{
+                count--;
+            }
+        }
+        return element;
+    }
+};
