@@ -59,11 +59,11 @@ public:
                  }
                  else{
                                    
-                    temp[0]=nums[i];
+                   temp[0]=nums[i];
                    temp[1]=nums[j];
                    temp[2]=nums[front];
                    temp[3]=nums[back];
-                    res.push_back(temp); 
+                   res.push_back(temp); 
                     while(nums[back]==temp[3] && front<back)back--;
                     while(nums[front]==temp[2] && front<back)front++;
                  }
