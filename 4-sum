@@ -1,0 +1,80 @@
+Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+
+0 <= a, b, c, d < n
+a, b, c, and d are distinct.
+nums[a] + nums[b] + nums[c] + nums[d] == target
+You may return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [1,0,-1,0,-2,2], target = 0
+Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+Example 2:
+
+Input: nums = [2,2,2,2,2], target = 8
+Output: [[2,2,2,2]]
+ 
+
+Constraints:
+
+1 <= nums.length <= 200
+-109 <= nums[i] <= 109
+-109 <= target <= 109
+
+Approach:
+Sort the array, and then fix two pointers, so the remaining sum will be (target – (nums[i] + nums[j])). 
+Now we can fix two-pointers, one front, and another back, and easily use a two-pointer to find the remaining two numbers of the quad.
+In order to avoid duplications, we jump the duplicates, because taking duplicates will result in repeating quads. 
+We can easily jump duplicates, by skipping the same elements by running a loop.
+
+Code:
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+     int n =nums.size();
+     if(n<4)  return {};
+     vector<vector<int>>res;
+     sort(nums.begin(),nums.end());
+     for(int i=0;i<n-3;i++){
+         for(int j=i+1;j<n-2;j++){
+             int num1=nums[i];
+             int num2=nums[j];
+             long long target1=(long long)target - 
+                           (long long)nums[i]-
+                           (long long)nums[j];
+            
+             int front=j+1;
+             int back=n-1;
+             vector<int>temp(4,0);
+             while(front<back){
+                 if(nums[front]+nums[back]>target1 && front<back){
+                     back--;
+                    
+                 }
+                 else if(nums[front]+nums[back]<target1 && front<back){
+                    front++;
+                     
+                 }
+                 else{
+                                   
+                    temp[0]=nums[i];
+                   temp[1]=nums[j];
+                   temp[2]=nums[front];
+                   temp[3]=nums[back];
+                    res.push_back(temp); 
+                    while(nums[back]==temp[3] && front<back)back--;
+                    while(nums[front]==temp[2] && front<back)front++;
+                 }
+                 
+                 
+             }
+             
+             while(j+1<n && nums[j+1]==nums[j]  )j++;  
+         }
+         while(i+1<n &&  nums[i+1]== nums[i] )i++;
+     }
+        return res;
+    }
+};
