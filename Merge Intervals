@@ -21,7 +21,7 @@ intervals[i].length == 2
 0 <= starti <= endi <= 104
 
 Approach:
-1)Start with 0th element.Merge the intervals of upcoming elements until there exists an opening.
+1)Start with 0th element.Merge the intervals of upcoming elements until there exists an overlapping.
 2)Repeat the first step considering current element being processed.
 
 Code:
