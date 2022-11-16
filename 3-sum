@@ -1,0 +1,87 @@
+15. 3Sum
+Medium
+
+22579
+
+2066
+
+Add to List
+
+Share
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+Notice that the solution set must not contain duplicate triplets.
+
+ 
+
+Example 1:
+
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+Explanation: 
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
+The distinct triplets are [-1,0,1] and [-1,-1,2].
+Notice that the order of the output and the order of the triplets does not matter.
+Example 2:
+
+Input: nums = [0,1,1]
+Output: []
+Explanation: The only possible triplet does not sum up to 0.
+Example 3:
+
+Input: nums = [0,0,0]
+Output: [[0,0,0]]
+Explanation: The only possible triplet sums up to 0.
+ 
+
+Constraints:
+
+3 <= nums.length <= 3000
+-105 <= nums[i] <= 105
+
+Approach;
+1)Same approach as that of that 4 sum
+2)Traverse the vector
+3)For elemnt,subtract that from target
+4)Then use front and back pointers to find target
+
+Code:
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+    int target=0,n=nums.size();
+    sort(nums.begin(),nums.end());
+    vector<vector<int>>ans;
+    for(int i=0;i<n;i++){
+        target=-nums[i];
+        int front=i+1;
+        int back=n-1;
+        while(front<back){
+            if(nums[front]+nums[back]==target){
+             vector<int>t={nums[i],nums[front],nums[back]};
+             ans.push_back(t);
+             while(front<back&&nums[front]==t[1]){
+                 front++;
+             }
+               
+                while(front<back &&nums[back]==t[2]){
+                 back--;
+             }
+             
+            }
+            else if(nums[front]+nums[back]<target){
+                front++;
+            }
+            else{
+                back--;
+            }
+            
+        }
+        while(i+1<n && nums[i]==nums[i+1])i++;
+    }
+        return ans;
+    }
+};
